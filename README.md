@@ -13,7 +13,7 @@ SembakoHub adalah platform e-commerce berbasis web yang menyediakan berbagai keb
 ## Teknologi yang Digunakan
 
 - **Laravel 10**: Framework PHP untuk pengembangan backend.
-- **Breeze**: Untuk autentikasi pengguna dan admin.
+- **Livewire**: Untuk halaman pengguna.
 - **Filament**: Untuk membangun halaman admin yang mudah digunakan.
 - **MySQL**: Database untuk menyimpan data produk, pesanan, dan pembayaran.
 
