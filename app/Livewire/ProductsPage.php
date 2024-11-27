@@ -48,7 +48,8 @@ class ProductsPage extends Component
         $cart_items = CartManagement::addItemToCart($user_id, $product_id, $this->quantity);
 
         // Perbarui hitungan keranjang di navbar
-        $this->dispatch('update-cart-count', total_count: $cart_items->count())->to(Navbar::class);
+        $total_count = CartManagement::getCartItemsCount($user_id);
+        $this->dispatch('update-cart-count', $total_count);
 
         $this->alert('success', 'Product added to the cart successfully!', [
             'position' => 'bottom-end',

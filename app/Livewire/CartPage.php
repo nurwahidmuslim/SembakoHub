@@ -24,6 +24,10 @@ class CartPage extends Component
         $user_id = auth()->id();
         $this->cart_items = CartManagement::addItemToCart($user_id, $product_id, $qty);
         $this->grand_total = CartManagement::calculateGrandTotal($user_id);
+
+        // Dispatch event untuk memperbarui jumlah item di navbar
+        $total_count = CartManagement::getCartItemsCount($user_id);
+        $this->dispatch('update-cart-count', $total_count);
     }
 
     public function removeItem($product_id)
@@ -31,6 +35,10 @@ class CartPage extends Component
         $user_id = auth()->id();
         $this->cart_items = CartManagement::removeCartItem($user_id, $product_id);
         $this->grand_total = CartManagement::calculateGrandTotal($user_id);
+
+        // Dispatch event untuk memperbarui jumlah item di navbar
+        $total_count = CartManagement::getCartItemsCount($user_id);
+        $this->dispatch('update-cart-count', $total_count);
     }
 
     public function increaseQty($product_id)
@@ -38,6 +46,10 @@ class CartPage extends Component
         $user_id = auth()->id();
         $this->cart_items = CartManagement::incrementQuantityToCartItem($user_id, $product_id);
         $this->grand_total = CartManagement::calculateGrandTotal($user_id);
+
+        // Dispatch event untuk memperbarui jumlah item di navbar
+        $total_count = CartManagement::getCartItemsCount($user_id);
+        $this->dispatch('update-cart-count', $total_count);
     }
 
     public function decreaseQty($product_id)
@@ -45,6 +57,10 @@ class CartPage extends Component
         $user_id = auth()->id();
         $this->cart_items = CartManagement::decrementQuantityToCartItem($user_id, $product_id);
         $this->grand_total = CartManagement::calculateGrandTotal($user_id);
+
+        // Dispatch event untuk memperbarui jumlah item di navbar
+        $total_count = CartManagement::getCartItemsCount($user_id);
+        $this->dispatch('update-cart-count', $total_count);
     }
 
     public function clearCart()
@@ -53,6 +69,9 @@ class CartPage extends Component
         CartManagement::clearCart($user_id);
         $this->cart_items = [];
         $this->grand_total = 0;
+
+        // Dispatch event untuk memperbarui jumlah item di navbar
+        $this->dispatch('update-cart-count', 0);
     }
 
     public function render()

@@ -12,12 +12,10 @@ class Navbar extends Component
 
     public function mount()
     {
-        $user_id = auth()->id(); // Dapatkan ID pengguna yang sedang login
+        $user_id = auth()->id();
         if ($user_id) {
-            // Hitung total item di keranjang untuk pengguna login
             $this->total_count = CartManagement::getCartItemsCount($user_id);
         } else {
-            // Jika pengguna belum login, keranjang kosong
             $this->total_count = 0;
         }
     }
