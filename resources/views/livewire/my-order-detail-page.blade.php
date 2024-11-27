@@ -202,10 +202,6 @@
           <span>IDR {{ number_format($order['grand_total'], 0, '', '') }}</span>
         </div>
         <div class="flex justify-between mb-2">
-          <span>Pajak</span>
-          <span>IDR {{ number_format(0, 0, '', '') }}</span>
-        </div>
-        <div class="flex justify-between mb-2">
           <span>Biaya Pengiriman</span>
           <span>IDR {{ number_format(0, 0, '', '') }}</span>
         </div>

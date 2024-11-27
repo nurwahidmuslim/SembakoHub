@@ -33,7 +33,7 @@
 
                 <!-- Image on the right -->
                 <div>
-                <img src="storage/logo.png" alt="SembakoHub Image" class="w-full max-w-[350px] h-auto object-contain rounded-lg shadow-lg">
+                <img src="storage/logo.png" alt="SembakoHub Image" class="w-full max-w-[300px] h-auto object-contain rounded-lg shadow-lg">
                 </div>
             </div>
         </div>
