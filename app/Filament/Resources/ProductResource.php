@@ -86,6 +86,14 @@ class ProductResource extends Resource
                             ->minValue(0)
                             ->maxValue(1000000000),
                         ]),
+
+                        TextInput::make('weight')
+                            ->label('Weight (grams)')
+                            ->numeric()
+                            ->required()
+                            ->minValue(0)
+                            ->maxValue(1000000) // Atur batas maksimum sesuai kebutuhan
+                            ->helperText('Enter the weight in grams.'),
                 
                     Section::make('Associations')->schema([
                         Select::make('category_id')
