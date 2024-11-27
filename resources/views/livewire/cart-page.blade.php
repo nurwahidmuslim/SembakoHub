@@ -7,36 +7,36 @@
           <table class="w-full">
             <thead>
                 <tr>
-                    <th class="text-center font-semibold">Produk</th>
-                    <th class="text-center font-semibold">Harga</th>
-                    <th class="text-center font-semibold">Jumlah</th>
-                    <th class="text-center font-semibold">Total</th>
-                    <th class="text-center font-semibold">Hapus</th>
+                    <th class="text-left font-semibold">Produk</th>
+                    <th class="text-left font-semibold">Harga</th>
+                    <th class="text-left font-semibold">Jumlah</th>
+                    <th class="text-left font-semibold">Total</th>
+                    <th class="text-left font-semibold"></th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($cart_items as $item)
                     <tr wire:key='{{$item['product_id']}}'>
-                        <td class="py-4 text-center">
-                            <div class="flex items-center justify-center">
+                        <td class="py-4 text-left">
+                            <div class="flex items-center">
                                 <img class="h-16 w-16 mr-4" src="{{asset('storage/' . $item->product->images[0])}}" alt="{{$item->product->name}}">
                                 <span class="font-semibold">{{$item->product->name}}</span>
                             </div>
                         </td>
-                        <td class="py-4 text-center">
+                        <td class="py-4 text-left">
                             IDR {{ number_format($item['unit_amount'], 0, '', '') }}
                         </td>
-                        <td class="py-4 text-center">
-                            <div class="flex items-center justify-center">
+                        <td class="py-4 text-left">
+                            <div class="flex items-center">
                                 <button wire:click="decreaseQty({{$item['product_id']}})" class="border rounded-md py-2 px-4 mr-2">-</button>
                                 <span class="text-center w-8">{{$item['quantity']}}</span>
                                 <button wire:click="increaseQty({{$item['product_id']}})" class="border rounded-md py-2 px-4 ml-2">+</button>
                             </div>
                         </td>
-                        <td class="py-4 text-center">
+                        <td class="py-4 text-left">
                             IDR {{ number_format($item['total_amount'], 0, '', '') }}
                         </td>
-                        <td class="text-center">
+                        <td class="text-left">
                             <button wire:click="removeItem({{$item['product_id']}})" class="bg-slate-300 border-2 border-slate-400 rounded-lg px-3 py-1 hover:bg-red-500 hover:text-white hover:border-red-700">
                                 <span wire:loading.remove wire:target="removeItem({{$item['product_id']}})">Hapus</span>
                                 <span wire:loading wire:target="removeItem({{$item['product_id']}})">Menghapus...</span>
@@ -45,7 +45,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="text-center py-4 text-4x1 font-semibold text-slate-500">Keranjang Kosong</td>
+                        <td colspan="5" class="text-left py-4 text-4x1 font-semibold text-slate-500">Keranjang Kosong</td>
                     </tr>
                 @endforelse
             </tbody>
