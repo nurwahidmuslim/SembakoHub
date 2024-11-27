@@ -21,6 +21,9 @@ class CheckoutPage extends Component
     public $state;
     public $zip_code;
     public $payment_method;
+    public $shipping_amount;
+    public $shipping_method;
+    public $weight;
     public $snap_token;
 
     public function mount()
