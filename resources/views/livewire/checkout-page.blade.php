@@ -142,14 +142,6 @@
 				</div>
 				<div class="flex justify-between mb-2 font-bold">
 					<span>
-						Pajak
-					</span>
-					<span>
-					IDR {{ number_format(0, 0, '', '') }}
-					</span>
-				</div>
-				<div class="flex justify-between mb-2 font-bold">
-					<span>
 						Biaya Pengiriman
 					</span>
 					<span>

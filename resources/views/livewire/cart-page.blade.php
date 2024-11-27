@@ -54,33 +54,34 @@
       </div>
       <div class="md:w-1/4">
         <div class="bg-white rounded-lg shadow-md p-6">
-          <h2 class="text-lg font-semibold mb-4">Ringkasan</h2>
-          <div class="flex justify-between mb-2">
-            <span>Subtotal</span>
-            <span>
-              IDR {{ number_format($grand_total, 0, '', '') }}
-            </span>
+          <h2 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Ringkasan</h2>
+          <div class="space-y-4">
+            @foreach ($cart_items as $item)
+              <div class="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 last:border-none">
+                <div class="flex flex-col">
+                  <span class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                    {{ $item->product->name }}
+                  </span>
+                  <span class="text-sm text-gray-500 truncate dark:text-gray-400">
+                    Jumlah: {{ $item['quantity'] }}
+                  </span>
+                </div>
+                <span class="text-sm font-medium text-gray-900 dark:text-white">
+                  IDR {{ number_format($item['total_amount'], 0, '', '.') }}
+                </span>
+              </div>
+            @endforeach
           </div>
-          <div class="flex justify-between mb-2">
-            <span>Pajak</span>
-            <span>
-              IDR {{ number_format(0, 0, '', '') }}
+          <div class="flex justify-between p-2">
+            <span class="text-base font-semibold text-gray-900 dark:text-white">Total</span>
+            <span class="text-base font-semibold text-gray-900 dark:text-white">
+              IDR {{ number_format($grand_total, 0, '', '.') }}
             </span>
-          </div>
-          <div class="flex justify-between mb-2">
-            <span>Pengiriman</span>
-            <span>
-              IDR {{ number_format(0, 0, '', '') }}
-            </span>
-          </div>
-          <hr class="my-2">
-          <div class="flex justify-between mb-2">
-            <span class="font-semibold">Total</span>
-            <span class="font-semibold">
-              IDR {{ number_format($grand_total, 0, '', '') }}</span>
           </div>
           @if ($cart_items)
-            <a href="/checkout" class="bg-blue-500 block text-center text-white py-2 px-4 rounded-lg mt-4 w-full">Checkout</a>
+            <a href="/checkout" class="bg-blue-500 block text-center text-white py-2 px-4 rounded-lg mt-4 w-full">
+              Checkout
+            </a>
           @endif
         </div>
       </div>
