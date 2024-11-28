@@ -47,11 +47,6 @@ class AddressRelationManager extends RelationManager
                     ->required()
                     ->maxLength(255),
 
-                TextInput::make('zip_code')
-                    ->required()
-                    ->numeric()
-                    ->maxLength(10),
-
                 TextArea::make('street_address')
                     ->required()
                     ->columnSpanFull(),
@@ -71,8 +66,6 @@ class AddressRelationManager extends RelationManager
                 TextColumn::make('city'),
 
                 TextColumn::make('state'),
-
-                TextColumn::make('zip_code'),
 
                 TextColumn::make('street_address'),
             ])

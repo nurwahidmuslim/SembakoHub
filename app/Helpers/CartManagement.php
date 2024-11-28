@@ -93,11 +93,6 @@ class CartManagement
         return CartItem::where('user_id', $user_id)->sum('quantity');
     }
 
-    /**
-     * Menghitung berat total keranjang belanja
-     * @param int $user_id
-     * @return int Total berat dalam gram
-     */
     static public function calculateTotalWeight($user_id)
     {
         $cart_items = self::getCartItemsForUser($user_id);

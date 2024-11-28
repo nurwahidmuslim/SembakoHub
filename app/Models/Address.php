@@ -16,7 +16,6 @@ class Address extends Model
         'phone',
         'street_address',
         'city', 'state',
-        'zip_code'
     ];
 
     public function order() {
