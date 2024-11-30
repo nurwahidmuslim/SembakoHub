@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,13 +31,17 @@
 </head>
 
 <body class="flex flex-col min-h-screen bg-slate-200 dark:bg-slate-700">
-  @livewire('partials.navbar')
+  @unless(request()->is('email/verify', 'login', 'register')) <!-- Pengecekan URL -->
+    @livewire('partials.navbar') <!-- Navbar hanya ditampilkan jika bukan halaman tertentu -->
+  @endunless
   
   <main class="flex-grow">
     {{ $slot }}
   </main>
   
-  @livewire('partials.footer')
+  @unless(request()->is('email/verify', 'login', 'register')) <!-- Pengecekan URL -->
+    @livewire('partials.footer') <!-- Footer hanya ditampilkan jika bukan halaman tertentu -->
+  @endunless
   
   @livewireScripts
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

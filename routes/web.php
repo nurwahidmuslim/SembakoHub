@@ -15,6 +15,9 @@ use App\Livewire\Auth\ForgotPasswordPage;
 use App\Livewire\Auth\ResetPasswordPage;
 use App\Livewire\SuccessPage;
 use App\Livewire\CancelPage;
+use App\Livewire\Auth\VerificationNoticePage;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
 
 Route::get('/', HomePage::class);
 Route::get('/categories', CategoriesPage::class);
@@ -41,3 +44,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/success', SuccessPage::class)->name('success');
     Route::get('/cancel', CancelPage::class)->name('cancel');
 });
+
+Route::get('/email/verify', VerificationNoticePage::class)
+    ->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    Auth::logout();
+
+    return redirect()->route('login')->with('success', 'Email verified successfully!');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function () {
+    auth()->user()->sendEmailVerificationNotification();
+    return response()->json(['success' => true]); 
+})->middleware(['auth', 'throttle:6,1'])->name('verification.resend');

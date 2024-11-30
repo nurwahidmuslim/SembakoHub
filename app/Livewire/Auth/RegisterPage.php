@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
 
 #[Title("Register - SembakoHub")]
 class RegisterPage extends Component {
@@ -26,8 +28,10 @@ class RegisterPage extends Component {
             'password'=> Hash::make($this->password),
         ]);
 
-        auth()->login($user);
-        return redirect()->intended();
+        // Trigger email verification event
+        event(new Registered($user));
+        Auth::login($user);
+        return redirect()->route('verification.notice');
     }
 
     public function render()

@@ -3,6 +3,11 @@
     <main class="w-full max-w-md mx-auto p-6">
       <div class="bg-white border border-gray-200 rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700">
         <div class="p-6 sm:p-8">
+          <!-- Logo -->
+          <div class="flex justify-center mb-6">
+            <img src="storage/logo.png" alt="Logo" class="w-20 h-20 object-cover">
+          </div>
+
           <div class="text-center">
             <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Daftar</h1>
             <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">

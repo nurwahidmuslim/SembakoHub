@@ -3,6 +3,9 @@
     <main class="w-full max-w-md mx-auto p-6">
       <div class="bg-white border border-gray-200 rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700">
         <div class="p-6 sm:p-8">
+        <div class="flex justify-center mb-6">
+            <img src="storage/logo.png" alt="Logo" class="w-20 h-20 object-cover">
+          </div>
           <div class="text-center">
             <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Masuk</h1>
             <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
@@ -15,15 +18,21 @@
 
           <hr class="my-5 border-gray-300">
 
+          <!-- Flash Message -->
+          @if (session('success'))
+            <div class="bg-green-500 text-white p-4 rounded mb-4">
+                {{ session('success') }}
+            </div>
+          @endif
+
+          @if (session('error'))
+            <div class="text-sm text-red-600 bg-red-100 border border-red-400 rounded-lg p-4 mb-4" role="alert">
+                {{ session('error') }}
+            </div>
+          @endif
+
           <!-- Form -->
           <form wire:submit.prevent='save'>
-
-            @if (session('error'))
-              <div class="text-sm text-red-600 bg-red-100 border border-red-400 rounded-lg p-4 mb-4" role="alert">
-                {{ session('error') }}
-              </div>
-            @endif
-            
             <div class="grid gap-y-4">
               <!-- Form Group -->
               <div>
