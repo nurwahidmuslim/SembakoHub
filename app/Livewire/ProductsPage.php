@@ -36,7 +36,7 @@ class ProductsPage extends Component
         $user_id = auth()->id(); // Pastikan pengguna login
 
         if (!$user_id) {
-            $this->alert('error', 'You must be logged in to add products to the cart.', [
+            $this->alert('error', 'Anda harus masuk untuk menambahkan produk ke keranjang.', [
                 'position' => 'bottom-end',
                 'timer' => 3000,
                 'toast' => true,
@@ -51,7 +51,7 @@ class ProductsPage extends Component
         $total_count = CartManagement::getCartItemsCount($user_id);
         $this->dispatch('update-cart-count', $total_count);
 
-        $this->alert('success', 'Product added to the cart successfully!', [
+        $this->alert('success', 'Produk berhasil ditambahkan ke keranjang!', [
             'position' => 'bottom-end',
             'timer' => 3000,
             'toast' => true,
