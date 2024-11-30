@@ -24,7 +24,7 @@
                             </div>
                         </td>
                         <td class="py-4 text-left">
-                            IDR {{ number_format($item['unit_amount'], 0, '', '') }}
+                            IDR {{ number_format($item['unit_amount'], 0, '', '.') }}
                         </td>
                         <td class="py-4 text-left">
                             <div class="flex items-center">
@@ -34,7 +34,7 @@
                             </div>
                         </td>
                         <td class="py-4 text-left">
-                            IDR {{ number_format($item['total_amount'], 0, '', '') }}
+                            IDR {{ number_format($item['total_amount'], 0, '', '.') }}
                         </td>
                         <td class="text-left">
                             <button wire:click="removeItem({{$item['product_id']}})" class="bg-slate-300 border-2 border-slate-400 rounded-lg px-3 py-1 hover:bg-red-500 hover:text-white hover:border-red-700">
@@ -78,10 +78,14 @@
               IDR {{ number_format($grand_total, 0, '', '.') }}
             </span>
           </div>
-          @if ($cart_items)
+          @if ($cart_items->isNotEmpty())
             <a href="/checkout" class="bg-blue-500 block text-center text-white py-2 px-4 rounded-lg mt-4 w-full">
               Checkout
             </a>
+          @else
+            <button class="bg-gray-400 text-white py-2 px-4 rounded-lg mt-4 w-full" disabled>
+              Checkout
+            </button>
           @endif
         </div>
       </div>

@@ -14,19 +14,38 @@ class CartManagement
             ->get();
     }
 
+    static public function getCartItem($user_id, $product_id)
+    {
+        return CartItem::where('user_id', $user_id)
+            ->where('product_id', $product_id)
+            ->first();
+    }
+
+
     static public function addItemToCart($user_id, $product_id, $qty = 1)
     {
+        $product = Product::findOrFail($product_id);
+
+        // Ambil jumlah produk yang sudah ada di keranjang
         $cart_item = CartItem::where('user_id', $user_id)
             ->where('product_id', $product_id)
             ->first();
 
-        $product = Product::findOrFail($product_id);
+        // Hitung total kuantitas (produk yang ada di keranjang + yang akan ditambahkan)
+        $total_quantity = $cart_item ? $cart_item->quantity + $qty : $qty;
+
+        // Cek apakah total kuantitas melebihi stok yang tersedia
+        if ($total_quantity > $product->in_stock) {
+            return response()->json(['message' => 'Jumlah yang diminta melebihi stok yang tersedia'], 400);
+        }
 
         if ($cart_item) {
+            // Jika produk sudah ada di keranjang, update kuantitas dan total harga
             $cart_item->quantity += $qty;
             $cart_item->total_amount = $cart_item->quantity * $cart_item->unit_amount;
             $cart_item->save();
         } else {
+            // Jika produk belum ada di keranjang, buat item baru
             CartItem::create([
                 'user_id' => $user_id,
                 'product_id' => $product_id,
@@ -65,7 +84,16 @@ class CartManagement
             ->first();
 
         if ($cart_item) {
-            $cart_item->quantity++;
+            $product = $cart_item->product;  // Ambil produk terkait dari keranjang
+            $new_quantity = $cart_item->quantity + 1;
+
+            // Cek apakah stok mencukupi untuk jumlah kuantitas baru
+            if ($new_quantity > $product->in_stock) {
+                return response()->json(['message' => 'Jumlah kuantitas melebihi stok yang tersedia'], 400);
+            }
+
+            // Jika stok mencukupi, increment kuantitas
+            $cart_item->quantity = $new_quantity;
             $cart_item->total_amount = $cart_item->quantity * $cart_item->unit_amount;
             $cart_item->save();
         }

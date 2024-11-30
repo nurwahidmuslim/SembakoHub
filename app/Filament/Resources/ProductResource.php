@@ -43,8 +43,9 @@ class ProductResource extends Resource
         return $form
             ->schema([
                 Group::make()->schema([
-                    Section::make('Product Information')->schema([
+                    Section::make('Informasi Produk')->schema([
                         TextInput::make('name')
+                            ->label('Nama Produk')
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
@@ -59,12 +60,14 @@ class ProductResource extends Resource
                             ->unique(Product::class, 'slug', ignoreRecord: true),
                 
                         MarkdownEditor::make('description')
+                            ->label('Deskripsi Produk')
                             ->columnSpanFull()
                             ->fileAttachmentsDirectory('products'),
                     ])->columns(2),
                 
-                    Section::make('Images')->schema([
+                    Section::make('Gambar Produk')->schema([
                         FileUpload::make('images')
+                            ->label('Upload 1 atau lebih')
                             ->multiple()
                             ->directory('products')
                             ->maxFiles(5)
@@ -73,8 +76,9 @@ class ProductResource extends Resource
                 ])->columnSpan(2),
 
                 Group::make()->schema([
-                    Section::make('Price')->schema([
+                    Section::make('Detail Produk')->schema([
                         TextInput::make('price')
+                            ->label('Harrga Produk')
                             ->numeric()
                             ->required()
                             ->prefix('IDR')
@@ -88,44 +92,32 @@ class ProductResource extends Resource
                         ]),
 
                         TextInput::make('weight')
-                            ->label('Weight (grams)')
+                            ->label('Berat (gr)')
                             ->numeric()
                             ->required()
                             ->minValue(0)
                             ->maxValue(1000000) // Atur batas maksimum sesuai kebutuhan
-                            ->helperText('Enter the weight in grams.'),
+                            ->helperText('Masukan berat dalam gram.'),
+
+                        Textinput::make('in_stock')
+                            ->label('Stok')
+                            ->required(),
                 
-                    Section::make('Associations')->schema([
+                    Section::make('Lainnya')->schema([
                         Select::make('category_id')
+                            ->label('Kategori Produk')
                             ->required()
                             ->searchable()
                             ->preload()
                             ->relationship('category', 'name'),
                 
                         Select::make('brand_id')
+                            ->label('Merek Produk')
                             ->required()
                             ->searchable()
                             ->preload()
                             ->relationship('brand', 'name'),
                     ]),
-                
-                    Section::make('Status')->schema([
-                        Toggle::make('in_stock')
-                            ->required()
-                            ->default(true),
-
-                        Toggle::make('is_active')
-                            ->required()
-                            ->default(true),
-
-                        Toggle::make('is_featured')
-                            ->required()
-                            ->default(true),
-    
-                        Toggle::make('on_sale')
-                            ->required()
-                            ->default(true),
-                    ])->columnSpan(1),
                 ])->columnSpan(1)
             ])->columns(3);
     }
@@ -135,29 +127,25 @@ class ProductResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label('Nama')
                     ->searchable(),
 
                 TextColumn::make('category.name')
+                    ->label('Kategori')
                     ->sortable(),
 
                 TextColumn::make('brand.name')
+                    ->label('Merek')
                     ->sortable(),
 
                 TextColumn::make('price')
+                    ->label('Harga')
                     ->formatStateUsing(fn ($state) => 'IDR ' . number_format((int) $state, 0, '', ''))
                     ->sortable(),
 
-                IconColumn::make('is_featured')
-                    ->boolean(),
-
-                IconColumn::make('on_sale')
-                    ->boolean(),
-
-                IconColumn::make('in_stock')
-                    ->boolean(),
-
-                IconColumn::make('is_active')
-                    ->boolean(),
+                TextColumn::make('in_stock')
+                    ->label('Stok')
+                    ->sortable(),
 
                 TextColumn::make('created_at')
                     ->dateTime()  

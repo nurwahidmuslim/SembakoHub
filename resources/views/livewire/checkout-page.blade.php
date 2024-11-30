@@ -64,7 +64,7 @@
 							<div class="text-red-500 text-sm">{{ $message }}</div>
 						@enderror
 					</div>
-					<div class="grid grid-cols-2 gap-4 mt-4">
+					<div class="mt-4">
 						<div>
 							<label class="block text-gray-700 dark:text-white mb-1" for="state">
 								Provinsi
@@ -72,16 +72,6 @@
 							<input wire:model="state" class="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none" id="state" type="text">
 							</input>
 							@error('state')							
-								<div class="text-red-500 text-sm">{{ $message }}</div>
-							@enderror
-						</div>
-						<div>
-							<label class="block text-gray-700 dark:text-white mb-1" for="zip">
-								Kode Pos
-							</label>
-							<input wire:model="zip_code" class="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none" id="zip" type="text">
-							</input>
-							@error('zip_code')							
 								<div class="text-red-500 text-sm">{{ $message }}</div>
 							@enderror
 						</div>

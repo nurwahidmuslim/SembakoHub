@@ -19,7 +19,6 @@ class CheckoutPage extends Component
     public $street_address;
     public $city;
     public $state;
-    public $zip_code;
     public $payment_method;
     public $shipping_amount;
     public $shipping_method;
@@ -46,7 +45,6 @@ class CheckoutPage extends Component
             'street_address'=> 'required',
             'city'          => 'required',
             'state'         => 'required',
-            'zip_code'      => 'required',
             'payment_method'=> 'required',
         ]);
 
@@ -60,6 +58,7 @@ class CheckoutPage extends Component
 
         $grand_total = CartManagement::calculateGrandTotal($user_id);
 
+        // Membuat order baru
         $order = new Order();
         $order->user_id = $user_id;
         $order->grand_total = $grand_total;
@@ -71,6 +70,7 @@ class CheckoutPage extends Component
         $order->notes = 'Pesanan atas nama ' . auth()->user()->name;
         $order->order_id = 'ORDER-' . uniqid();
 
+        // Membuat alamat pengiriman
         $address = new Address();
         $address->fill([
             'first_name'    => $this->first_name,
@@ -79,11 +79,10 @@ class CheckoutPage extends Component
             'street_address'=> $this->street_address,
             'city'          => $this->city,
             'state'         => $this->state,
-            'zip_code'      => $this->zip_code,
         ]);
 
+        // Proses pembayaran dengan Midtrans (jika pembayaran online)
         $redirect_url = '';
-
         if ($this->payment_method == 'online') {
             Config::$serverKey = env('MIDTRANS_SERVER_KEY');
             Config::$isProduction = false;
@@ -147,15 +146,36 @@ class CheckoutPage extends Component
             $redirect_url = route('success');
         }
 
+        // Simpan order dan alamat
         $order->save();
         $address->order_id = $order->id;
         $address->save();
 
+        // Menambahkan item pesanan
         $order->items()->createMany($cart_items->toArray());
+
+        // Mengurangi stok produk
+        foreach ($cart_items as $item) {
+            $product = $item->product;
+            $new_stock = $product->in_stock - $item->quantity;
+
+            // Memastikan stok tidak menjadi negatif
+            if ($new_stock >= 0) {
+                $product->in_stock = $new_stock;
+                $product->save();
+            } else {
+                session()->flash('error', 'Stok produk ' . $product->name . ' tidak mencukupi.');
+                return redirect()->route('checkout');
+            }
+        }
+
+        // Menghapus item keranjang setelah checkout berhasil
         CartManagement::clearCart($user_id);
 
+        // Mengirim email konfirmasi
         Mail::to(auth()->user())->send(new OrderPlaced($order));
 
+        // Redirect ke halaman sukses atau pembayaran
         return redirect($redirect_url);
     }
 
