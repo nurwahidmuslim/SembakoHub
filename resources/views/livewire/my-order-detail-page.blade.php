@@ -3,7 +3,7 @@
 
   <!-- Grid -->
   <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-5">
-    <!-- Card -->
+    <!-- Kartu -->
     <div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-800">
       <div class="p-4 md:p-5 flex gap-x-4">
         <div class="flex-shrink-0 flex justify-center items-center size-[46px] bg-gray-100 rounded-lg dark:bg-gray-800">
@@ -27,9 +27,9 @@
         </div>
       </div>
     </div>
-    <!-- End Card -->
+    <!-- Akhir Kartu -->
 
-    <!-- Card -->
+    <!-- Kartu -->
     <div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-800">
       <div class="p-4 md:p-5 flex gap-x-4">
         <div class="flex-shrink-0 flex justify-center items-center size-[46px] bg-gray-100 rounded-lg dark:bg-gray-800">
@@ -55,9 +55,9 @@
         </div>
       </div>
     </div>
-    <!-- End Card -->
+    <!-- Akhir Kartu -->
 
-    <!-- Card -->
+    <!-- Kartu -->
     <div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-800">
       <div class="p-4 md:p-5 flex gap-x-4">
         <div class="flex-shrink-0 flex justify-center items-center size-[46px] bg-gray-100 rounded-lg dark:bg-gray-800">
@@ -77,23 +77,23 @@
           @php
                 $status = '';
                 if ($order->status == 'new') {
-                    $status = '<span class="bg-blue-500 py-1 px-3 rounded text-white shadow">New</span>';
+                    $status = '<span class="bg-blue-500 py-1 px-3 rounded text-white shadow">Baru</span>';
                 }
 
                 if ($order->status == 'processing') {
-                    $status = '<span class="bg-yellow-500 py-1 px-3 rounded text-white shadow">Processing</span>';
+                    $status = '<span class="bg-yellow-500 py-1 px-3 rounded text-white shadow">Sedang Diproses</span>';
                 }
 
                 if ($order->status == 'shipped') {
-                    $status = '<span class="bg-green-500 py-1 px-3 rounded text-white shadow">Shipped</span>';
+                    $status = '<span class="bg-green-500 py-1 px-3 rounded text-white shadow">Dikirim</span>';
                 }
 
                 if ($order->status == 'delivered') {
-                    $status = '<span class="bg-green-700 py-1 px-3 rounded text-white shadow">Delivered</span>';
+                    $status = '<span class="bg-green-700 py-1 px-3 rounded text-white shadow">Terkirim</span>';
                 }
 
                 if ($order->status == 'cancelled') {
-                    $status = '<span class="bg-red-700 py-1 px-3 rounded text-white shadow">Cancelled</span>';
+                    $status = '<span class="bg-red-700 py-1 px-3 rounded text-white shadow">Dibatalkan</span>';
                 }
               @endphp
             <span class="mt-1 rounded">{!!$status!!}</span>
@@ -101,9 +101,9 @@
         </div>
       </div>
     </div>
-    <!-- End Card -->
+    <!-- Akhir Kartu -->
 
-    <!-- Card -->
+    <!-- Kartu -->
     <div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-slate-900 dark:border-gray-800">
       <div class="p-4 md:p-5 flex gap-x-4">
         <div class="flex-shrink-0 flex justify-center items-center size-[46px] bg-gray-100 rounded-lg dark:bg-gray-800">
@@ -125,15 +125,15 @@
           @php
                 $payment_status = '';
                 if ($order->payment_status == 'pending') {
-                  $payment_status = '<span class="bg-yellow-500 py-1 px-3 rounded text-white shadow">Pending</span>';
+                  $payment_status = '<span class="bg-yellow-500 py-1 px-3 rounded text-white shadow">Menunggu</span>';
                 }
 
                 if ($order->payment_status == 'paid') {
-                  $payment_status = '<span class="bg-green-500 py-1 px-3 rounded text-white shadow">Paid</span>';
+                  $payment_status = '<span class="bg-green-500 py-1 px-3 rounded text-white shadow">Lunas</span>';
                 }
 
                 if ($order->payment_status == 'failed') {
-                  $payment_status = '<span class="bg-red-500 py-1 px-3 rounded text-white shadow">Failed</span>';
+                  $payment_status = '<span class="bg-red-500 py-1 px-3 rounded text-white shadow">Gagal</span>';
                 }
               @endphp
             <span class="mt-1 rounded">{!!$payment_status!!}</span>
@@ -141,9 +141,9 @@
         </div>
       </div>
     </div>
-    <!-- End Card -->
+    <!-- Akhir Kartu -->
   </div>
-  <!-- End Grid -->
+  <!-- Akhir Grid -->
 
   <div class="flex flex-col md:flex-row gap-4 mt-4">
     <div class="md:w-3/4">
@@ -184,7 +184,7 @@
         <h1 class="font-3xl font-bold text-slate-500 mb-3">Alamat Pengiriman</h1>
         <div class="flex justify-between items-center">
           <div>
-            <p>{{$address->street_address}}, {{$address->city}}, {{$address->state}}, {{$address->zip_code}}</p>
+            <p>{{$address->street_address}}, {{$address->city}}, {{$address->state}}</p>
           </div>
           <div>
             <p class="font-semibold">No Telepon</p>

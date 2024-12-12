@@ -15,7 +15,7 @@
                 {{$order->address->street_address}}
               </p>
               <p class="text-sm leading-4 text-gray-600 dark:text-gray-400">
-                {{$order->address->city}}, {{$order->address->state}}, {{$order->address->zip_code}}
+                {{$order->address->city}}, {{$order->address->state}}
               </p>
               <p class="text-sm leading-4 cursor-pointer dark:text-gray-400">Telepon: {{$order->address->phone}}</p>
             </div>
